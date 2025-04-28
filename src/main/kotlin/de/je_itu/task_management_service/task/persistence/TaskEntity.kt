@@ -15,7 +15,7 @@ class TaskEntity(
     var id: Long = 0L,
 
     @Embedded
-    @AttributeOverride(name = "value", column = Column(name = "task_name", nullable = false))
+    @AttributeOverride(name = "value", column = Column(name = "task_name", nullable = false, unique = true))
     val taskName: Taskname,
 
     @Embedded

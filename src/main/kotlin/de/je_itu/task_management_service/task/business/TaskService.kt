@@ -1,5 +1,6 @@
 package de.je_itu.task_management_service.task.business
 
+import de.je_itu.task_management_service.shared.errorhandling.TaskNameIsAlreadyExistException
 import de.je_itu.task_management_service.shared.types.Deadline
 import de.je_itu.task_management_service.shared.types.Description
 import de.je_itu.task_management_service.shared.types.Status
@@ -20,6 +21,11 @@ class TaskService (
     }
 
     fun createNewTask(taskName: Taskname, description: Description, deadline: Deadline, status: Status): TaskDTO {
+
+        if (taskRepository.existsByTaskName(taskName)) {
+            throw TaskNameIsAlreadyExistException()
+        }
+
         return taskRepository.save(TaskEntity(taskName = taskName, description = description, deadline = deadline, status = status)).toTaskDTO()
     }
 }
