@@ -12,21 +12,21 @@ class TaskEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    var id: Long = 0L,
+    val id: Long = 0L,
 
     @Embedded
     @AttributeOverride(name = "value", column = Column(name = "task_name", nullable = false, unique = true))
-    val taskName: Taskname,
+    var taskName: Taskname,
 
     @Embedded
     @AttributeOverride(name = "value", column = Column(name = "description", nullable = false))
-    val description: Description,
+    var description: Description,
 
     @Embedded
     @AttributeOverride(name = "value", column = Column(name = "deadline", nullable = false))
-    val deadline: Deadline,
+    var deadline: Deadline,
 
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
-    val status: Status
+    var status: Status
 )
