@@ -7,3 +7,7 @@ sealed class BusinessException(
 class TaskNameIsAlreadyExistException: BusinessException(
     "The enter Taskname is already taken."
 )
+
+class TaskNotFoundException: BusinessException(
+    "The enter Taskname was not found."
+)

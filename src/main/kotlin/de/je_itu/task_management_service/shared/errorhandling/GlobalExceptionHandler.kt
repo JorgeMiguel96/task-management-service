@@ -25,6 +25,11 @@ class GlobalExceptionHandler {
     fun handleHttpMessageNotReadableException(ex: HttpMessageNotReadableException) =
         respondWith(BAD_REQUEST, ex.cause?.cause?.message).also { ex.message }
 
+    @ExceptionHandler(
+        TaskNotFoundException::class
+    )
+    fun handleNotFoundExceptions(ex: BusinessException) =
+            respondWith(NOT_FOUND, ex.message).also { ex.message }
 
     @ExceptionHandler(
         Exception::class

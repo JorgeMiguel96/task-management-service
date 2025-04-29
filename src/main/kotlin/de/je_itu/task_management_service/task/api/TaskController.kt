@@ -24,4 +24,9 @@ class TaskController (
         return taskService.createNewTask(body.taskName, body.description, body.deadline, body.status)
     }
 
+    @PutMapping("/task/{taskId}")
+    @ResponseStatus(OK)
+    fun updateTask(@PathVariable taskId: Long, @RequestBody body: TaskRequestBodyDTO): TaskDTO {
+        return taskService.updateTask(taskId, body.taskName, body.description, body.deadline, body.status)
+    }
 }
