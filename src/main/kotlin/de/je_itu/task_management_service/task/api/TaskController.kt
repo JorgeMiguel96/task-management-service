@@ -29,4 +29,10 @@ class TaskController (
     fun updateTask(@PathVariable taskId: Long, @RequestBody body: TaskRequestBodyDTO): TaskDTO {
         return taskService.updateTask(taskId, body.taskName, body.description, body.deadline, body.status)
     }
+
+    @DeleteMapping("/task/{taskId}")
+    @ResponseStatus(OK)
+    fun deleteTask(@PathVariable taskId: Long) : TaskDTO {
+       return taskService.deleteTask(taskId)
+    }
 }
