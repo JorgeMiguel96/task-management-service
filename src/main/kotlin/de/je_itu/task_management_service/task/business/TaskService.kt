@@ -43,4 +43,10 @@ class TaskService (
 
         return taskRepository.save(taskEntity).toTaskDTO()
     }
+
+    fun deleteTask(taskId: Long): TaskDTO {
+        val taskEntity = taskRepository.findById(taskId).orElseThrow { TaskNotFoundException() }
+        taskRepository.delete(taskEntity)
+        return taskEntity.toTaskDTO()
+    }
 }
