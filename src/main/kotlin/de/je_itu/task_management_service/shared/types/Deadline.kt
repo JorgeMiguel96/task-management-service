@@ -14,7 +14,7 @@ data class Deadline @JsonCreator constructor(
 ) {
     init {
         require(value matches deadlineRegex) {
-            "Deadline '$value' does not match pattern '$deadlineRegex'"
+            "Deadline '$value' does not match pattern: $deadlineRegex"
         }
     }
 
