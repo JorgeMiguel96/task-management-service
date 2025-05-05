@@ -8,7 +8,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "tasks")
-class TaskEntity(
+data class TaskEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
