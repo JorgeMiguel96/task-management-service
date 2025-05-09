@@ -1,0 +1,89 @@
+{
+  "info": {
+    "_postman_id": "9cfa8ad3-82c9-49ed-a636-42818d097684",
+    "name": "task-management-service",
+    "description": "This collection contains all endpoints of the task-management-service Microservice to simplify testing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Task",
+      "item": [
+        {
+          "name": "getAllTasks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/tasks"
+          },
+          "response": []
+        },
+        {
+          "name": "createNewTask",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"taskName\": \"Test\", \n    \"description\": \"Description\",\n    \"deadline\": \"2025-07-03\",\n    \"status\": \"ACTIVE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/task"
+          },
+          "response": []
+        },
+        {
+          "name": "updateTask",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"taskId\": 1,\n    \"taskName\": \"Test_1111\", \n    \"description\": \"Description_1\",\n    \"deadline\": \"2025-07-03\",\n    \"status\": \"ACTIVE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/task/1"
+          },
+          "response": []
+        },
+        {
+          "name": "deleteTask",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{base_url}}/task/1"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/task-api"
+    }
+  ]
+}
