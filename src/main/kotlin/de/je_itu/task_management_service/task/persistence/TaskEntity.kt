@@ -11,7 +11,8 @@ import jakarta.persistence.*
 class TaskEntity(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq_gen")
+    @SequenceGenerator(name = "task_seq_gen", sequenceName = "seq_tasks_id", allocationSize = 1)
     val id: Long = 0L,
 
     @Embedded
@@ -26,7 +27,7 @@ class TaskEntity(
     @AttributeOverride(name = "value", column = Column(name = "deadline", nullable = false))
     var deadline: Deadline,
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     var status: Status
 )
