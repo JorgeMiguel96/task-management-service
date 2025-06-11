@@ -29,9 +29,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
+import org.springframework.test.context.ActiveProfiles
 
 @WebMvcTest(TaskController::class)
 @MockkBean(TaskService::class)
+@ActiveProfiles("test")
 class TaskWebMvcTest @Autowired constructor(
     private val taskService: TaskService,
     private val mockMvc: MockMvc
