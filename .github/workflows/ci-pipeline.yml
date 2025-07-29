@@ -49,8 +49,8 @@ jobs:
   #  This job runs only after 'build_and_test' succeeds on the main branch.
   # =================================================================
   build_and_push_docker_image:
-    # This job should only run on the main branch after a successful build
-    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name == 'push'
+    # This job should only run on the main or BE-0005 branch after a successful push
+    if: (github.ref_name == 'main' || github.ref_name == 'BE-0005') && github.event_name == 'push'
     needs: build_and_test # <-- This job depends on the previous one
     runs-on: ubuntu-latest
     permissions:
@@ -71,21 +71,27 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }} # <-- GitHub provides this automatically
 
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=sha,prefix=
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }} # e.g., ghcr.io/jorgemiguel96/task-management-service:commit-hash
-          labels: |
-            org.opencontainers.image.source=${{ github.repositoryUrl }}
-            org.opencontainers.image.revision=${{ github.sha }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
   # =================================================================
   #  3. DEPLOY TO RENDER
   # =================================================================
   deploy_to_render:
-    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name == 'push'
+    if: (github.ref_name == 'main' || github.ref_name == 'BE-0005') && github.event_name == 'push'
     needs: build_and_push_docker_image
     runs-on: ubuntu-latest
     steps:
