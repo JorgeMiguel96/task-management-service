@@ -5,15 +5,16 @@ name: Task Management CI/CD
 on:
   push:
     branches:
-      - 'main'
-      - 'master'
-      - 'BE-**'  # <-- Triggers on pushes to branches like BE-0005, BE-0006, etc.
+      - 'BE-0005'
+    #  - 'main'
+    #  - 'master'
+    #  - 'BE-**'  # <-- Triggers on pushes to branches like BE-0005, BE-0006, etc.
   pull_request:
     branches: [ "main", "master" ] # Also trigger on PRs to main/master
 
 jobs:
   # =================================================================
-  #  1. BUILD, LINT & TEST
+  #  1. BUILD & TEST
   #  This job ensures the code is correct and high-quality.
   # =================================================================
   build_and_test:
@@ -33,11 +34,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run tests and build
-        # 'build' automatically runs 'test', so you only need one command
+        # 'build' automatically runs 'test', so we only need one command
         run: ./gradlew build
 
       - name: Upload test report
-        # Always upload reports, even on failure, for debugging
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -75,6 +75,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
+          # it will automatically lowercase the repository name (e.g., JorgeMiguel96 becomes jorgemiguel96) to comply with Docker's naming standards.
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=sha,prefix=
@@ -97,3 +98,4 @@ jobs:
     steps:
       - name: Trigger Render Deploy Hook
         run: curl "https://api.render.com/deploy/srv-d24a5q15pdvs7383sal0?key=pKKoEYtx2EA"
+        # run: curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
