@@ -50,7 +50,7 @@ jobs:
   # =================================================================
   build_and_push_docker_image:
     # This job should only run on the main branch after a successful build
-    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name  == 'push')
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name == 'push'
     needs: build_and_test # <-- This job depends on the previous one
     runs-on: ubuntu-latest
     permissions:
