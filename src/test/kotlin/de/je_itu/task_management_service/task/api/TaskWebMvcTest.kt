@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -29,7 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.context.ActiveProfiles
+
 
 @WebMvcTest(TaskController::class)
 @MockkBean(TaskService::class)
@@ -118,19 +119,20 @@ class TaskWebMvcTest @Autowired constructor(
             )
         }
 
-//        @Test
-//        fun `creating a task returns 400 BAD REQUEST when the JSON value is blank`() {
-//            mockMvc.perform(
-//                post("/task-api/task")
-//                    .accept(MediaType.APPLICATION_JSON)
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                    .content(jsonValueIsBlank)
-//            ).andExpectAll(
-//                status().isBadRequest,
-//                content()
-//                    .string(StringContains.containsString("Taskname '' does not match pattern '([a-zA-Z0-9_-]{2,25})( [a-zA-Z0-9]{2,25})*'"))
-//            )
-//        }
+
+        @Test
+        fun `creating a task returns 400 BAD REQUEST when the JSON value is blank`() {
+            mockMvc.perform(
+                post("/task-api/task")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(jsonValueIsBlank)
+            ).andExpectAll(
+                status().isBadRequest,
+                content()
+                    .string(StringContains.containsString("Taskname '' does not match pattern '([a-zA-ZÄÖÜäöü0-9_-]{2,15})( [a-zA-ZÄÖÜäöü0-9_-]{2,15})*'"))
+            )
+        }
 
 //        @Test
 //        fun `creating a task returns 400 BAD REQUEST when the JSON value is not valid`() {

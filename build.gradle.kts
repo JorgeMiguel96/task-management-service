@@ -32,6 +32,7 @@ dependencies {
 	testImplementation("io.kotest:kotest-assertions-core-jvm:5.8.1")
 
 	testImplementation("com.h2database:h2")
+
 }
 
 kotlin {
