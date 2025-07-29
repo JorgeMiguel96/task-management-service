@@ -50,7 +50,7 @@ jobs:
   # =================================================================
   build_and_push_docker_image:
     # This job should only run on the main branch after a successful build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name  == 'push')
     needs: build_and_test # <-- This job depends on the previous one
     runs-on: ubuntu-latest
     permissions:
@@ -80,3 +80,14 @@ jobs:
           labels: |
             org.opencontainers.image.source=${{ github.repositoryUrl }}
             org.opencontainers.image.revision=${{ github.sha }}
+
+  # =================================================================
+  #  3. DEPLOY TO RENDER
+  # =================================================================
+  deploy_to_render:
+    if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/BE-0005') && github.event_name == 'push'
+    needs: build_and_push_docker_image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deploy Hook
+        run: curl "https://api.render.com/deploy/srv-d24a5q15pdvs7383sal0?key=pKKoEYtx2EA"
