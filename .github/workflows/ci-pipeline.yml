@@ -97,5 +97,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Render Deploy Hook
-        run: curl "https://api.render.com/deploy/srv-d24a5q15pdvs7383sal0?key=pKKoEYtx2EA"
-        # run: curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
+        # run: curl "https://api.render.com/deploy/srv-d24a5q15pdvs7383sal0?key=pKKoEYtx2EA"
+        run: curl "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
