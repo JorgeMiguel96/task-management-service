@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      open-in-view: false
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  error:
+    include-message: on_param

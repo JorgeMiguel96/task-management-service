@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 import jakarta.persistence.Embeddable
 import jakarta.persistence.MappedSuperclass
 
-private val taskNameRegex = Regex("""([a-zA-Z0-9_-]{2,25})( [a-zA-Z0-9]{2,25})*""")
+private val taskNameRegex = Regex("""([a-zA-ZÄÖÜäöü0-9_-]{2,15})( [a-zA-ZÄÖÜäöü0-9_-]{2,15})*""")
 
 @MappedSuperclass
 @Embeddable
